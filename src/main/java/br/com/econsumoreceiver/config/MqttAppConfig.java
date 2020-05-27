@@ -20,6 +20,12 @@ import org.springframework.messaging.MessagingException;
 
 import br.com.econsumoreceiver.service.ConsumoService;
 
+/**
+ * Classe responsável pela configuração do Broker Mqtt que será ouvido
+ * 
+ * @author Rafael Moraes
+ * @since 27/05/2020
+ */
 @Configuration
 public class MqttAppConfig {
 	

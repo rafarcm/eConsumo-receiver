@@ -1,6 +1,5 @@
 package br.com.econsumoreceiver.model.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,22 +10,39 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Entidade de Consumo. Contém os dados de consumo da residência
+ * 
+ * @author Rafael Moraes
+ * @since 27/05/2020
+ */
 @Document(collection = "consumo")
 @Getter
 @EqualsAndHashCode
 @ToString
 public class Consumo {
 	
+	private static final String FORMATO_DATA = "dd/MM/yyyy HH:mm:ss"; 
+	
 	@Id
 	private String id;
-	private BigDecimal tensao;
-	private BigDecimal corrente;
+	private Double tensao;
+	private Double corrente;
 	private String data;
 	
-	public Consumo(BigDecimal tensao, BigDecimal corrente) {
+	/**
+	 * Construtor da Classe Consumo
+	 * 
+	 * @param tensao - Tensão de leitura
+	 * @param corrente - Corrente de leitura
+	 * @param data - Data da leitura
+	 * @author Rafael Moraes
+	 * @since 27/05/2020
+	 */
+	public Consumo(Double tensao, Double corrente, LocalDateTime data) {
 		this.tensao = tensao;
 		this.corrente = corrente;
-		this.data = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+		this.data = data.format(DateTimeFormatter.ofPattern(FORMATO_DATA));
 	}
 
 }
