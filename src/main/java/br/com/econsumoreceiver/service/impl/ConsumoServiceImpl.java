@@ -27,7 +27,7 @@ public class ConsumoServiceImpl implements ConsumoService {
 	private static final int POSICAO_TENSAO = 0;
 	private static final int POSICAO_CORRENTE = 1;
 	private static final int POSICAO_DATA = 2;
-	private static final String FORMATO_DATA = "dd/MM/yyyy HH:mm:ss"; 
+	private static final String FORMATO_DATA = "dd-MM-yyyy HH:mm:ss"; 
 	
 	@Override
 	public void salvarConsumo(String dadosConsumo) {
