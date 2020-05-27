@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
  * @since 27/05/2020
  */
 @Configuration
-public class AppMongoConfig {
+public class MongoAppConfig {
 
 	@Autowired
 	private MongoDatabaseFactory mongoDbFactory;

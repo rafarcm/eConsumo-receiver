@@ -31,6 +31,8 @@ public class MqttAppConfig {
 	
 	private static final Logger LOGGER = LogManager.getLogger(MqttAppConfig.class);
 	
+	private static final String SEPARADOR_CONSUMOS = "%";
+	
 	@Autowired
 	private ConsumoService consumoService;
 	
@@ -72,7 +74,11 @@ public class MqttAppConfig {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
             	try {
-            		consumoService.salvarConsumo(message.getPayload().toString());
+            		final String[] consumos = message.getPayload().toString().split(SEPARADOR_CONSUMOS);
+            		
+            		for (int i = 0; i < consumos.length; i++) {
+            			consumoService.salvarConsumo(consumos[i]);
+					}
             	} catch (Exception e) {
             		LOGGER.error(e);
 				}
