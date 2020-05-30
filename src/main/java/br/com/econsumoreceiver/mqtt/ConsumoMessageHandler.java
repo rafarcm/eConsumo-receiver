@@ -9,6 +9,8 @@ import org.springframework.messaging.MessagingException;
 
 import br.com.econsumoreceiver.config.MqttAppConfig;
 import br.com.econsumoreceiver.service.ConsumoService;
+import br.com.econsumoreceiver.validator.ConsumoPayloadValidator;
+import br.com.econsumoreceiver.validator.PayloadValidator;
 
 public class ConsumoMessageHandler implements MessageHandler {
 	
@@ -23,8 +25,9 @@ public class ConsumoMessageHandler implements MessageHandler {
     public void handleMessage(Message<?> message) throws MessagingException {
     	try {
     		final String[] consumos = message.getPayload().toString().split(SEPARADOR_CONSUMOS);
-    		
     		for (int i = 0; i < consumos.length; i++) {
+    			final PayloadValidator validator = new ConsumoPayloadValidator();
+    			validator.validar(consumos[i]);
     			consumoService.salvarConsumo(consumos[i]);
 			}
     	} catch (Exception e) {

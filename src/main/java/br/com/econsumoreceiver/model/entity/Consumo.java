@@ -26,6 +26,7 @@ public class Consumo {
 	
 	@Id
 	private String id;
+	private String equipamento;
 	private Double tensao;
 	private Double corrente;
 	private String data;
@@ -33,13 +34,15 @@ public class Consumo {
 	/**
 	 * Construtor da Classe Consumo
 	 * 
+	 * @param equipamento - Id do equipamento
 	 * @param tensao - Tensão de leitura
 	 * @param corrente - Corrente de leitura
 	 * @param data - Data da leitura
 	 * @author Rafael Moraes
 	 * @since 27/05/2020
 	 */
-	public Consumo(Double tensao, Double corrente, LocalDateTime data) {
+	public Consumo(String equipamento, Double tensao, Double corrente, LocalDateTime data) {
+		this.equipamento = equipamento;
 		this.tensao = tensao;
 		this.corrente = corrente;
 		this.data = data.format(DateTimeFormatter.ofPattern(FORMATO_DATA));
