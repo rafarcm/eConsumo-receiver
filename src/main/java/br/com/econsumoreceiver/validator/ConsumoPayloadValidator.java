@@ -6,53 +6,64 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import br.com.econsumoreceiver.config.AppConfig;
+import br.com.econsumoreceiver.config.MensagensConfig;
 import br.com.econsumoreceiver.enums.ConsumoPayloadEnum;
 import br.com.econsumoreceiver.exception.ConsumoException;
 
+@Service
 public class ConsumoPayloadValidator implements PayloadValidator {
 	
-	private static final String FORMATO_DATA = "dd-MM-yyyy HH:mm:ss"; 
+	private static final int QTDE_POSICOES = 4;
+	
+	@Autowired
+	private AppConfig appConfig;
+	
+	@Autowired
+	private MensagensConfig mensagensConfig;
 
 	@Override
 	public void validar(String payload) {
 		
 		if (StringUtils.isEmpty(payload)) {
-			throw new ConsumoException("Dados de consumo não informado");
+			throw new ConsumoException(mensagensConfig.getDadosConsumoNull());
 		}
-		final String[] dadosConsumoArray = payload.split(";");
+		final String[] dadosConsumoArray = payload.split(appConfig.getSeparadorPayload());
 		
-		if (dadosConsumoArray == null || dadosConsumoArray.length != 4) {
-			throw new ConsumoException("Dados de consumo inválidos");
+		if (dadosConsumoArray == null || dadosConsumoArray.length != QTDE_POSICOES) {
+			throw new ConsumoException(mensagensConfig.getDadosConsumoInvalida());
 		}
 		
 		if(StringUtils.isEmpty(dadosConsumoArray[ConsumoPayloadEnum.EQUIPAMENTO.getPosicao()].trim())) {
-			throw new ConsumoException("Id do equipamento não informado");
+			throw new ConsumoException(mensagensConfig.getEquipamentoNull());
 		}
 		
 		if(StringUtils.isEmpty(dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim())) {
-			throw new ConsumoException("Tensão não informada");
+			throw new ConsumoException(mensagensConfig.getTensaoNull());
 		}
 		
 		if(StringUtils.isEmpty(dadosConsumoArray[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim())) {
-			throw new ConsumoException("Corrente não informada");
+			throw new ConsumoException(mensagensConfig.getCorrenteNull());
 		}
 		
 		if(StringUtils.isEmpty(dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim())) {
-			throw new ConsumoException("Data de leitura não informada");
+			throw new ConsumoException(mensagensConfig.getDataLeituraNull());
 		}
 		
 		if(!isTensaoValida(dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim())) {
-			throw new ConsumoException("Tensão inválida " + dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim());
+			throw new ConsumoException(mensagensConfig.getTensaoInvalida() + " " + dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim());
 		}
 		
 		if(!isCorrenteValida(dadosConsumoArray[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim())) {
-			throw new ConsumoException("Corrente inválida " + dadosConsumoArray[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim());
+			throw new ConsumoException(mensagensConfig.getCorrenteInvalida() + " " + dadosConsumoArray[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim());
 		}
 		
 		if(!isDataValida(dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim())) {
-			throw new ConsumoException("Data de leitura inválida " + dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim());
+			throw new ConsumoException(mensagensConfig.getDataLeituraInvalida() + " " + dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim());
 		}
 	}
 	
@@ -76,7 +87,7 @@ public class ConsumoPayloadValidator implements PayloadValidator {
 	
 	private boolean isDataValida(String data) {
 		try {
-			final SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_DATA);
+			final SimpleDateFormat sdf = new SimpleDateFormat(appConfig.getFormatoData());
 			sdf.setLenient(false);
 			final Date dataLeitura = sdf.parse(data);
 			return dataLeitura.toInstant()

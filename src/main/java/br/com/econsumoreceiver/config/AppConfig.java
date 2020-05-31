@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Component
 @Getter
-public class ConfigurationApp {
+public class AppConfig {
 
 	@Value("${mqtt.url}")
 	private String mqttUrl;
@@ -20,5 +20,14 @@ public class ConfigurationApp {
 	
 	@Value("${mqtt.topic}")
 	private String mqttTopic;
+	
+	@Value("${formato.data}")
+	private String formatoData;
+	
+	@Value("${separador.payload}")
+	private String separadorPayload;
+	
+	@Value("${separador.dados.payload}")
+	private String separadorDadosPayload;
 	
 }

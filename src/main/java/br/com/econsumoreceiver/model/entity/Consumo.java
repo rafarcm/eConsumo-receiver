@@ -1,14 +1,16 @@
 package br.com.econsumoreceiver.model.entity;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * Entidade de Consumo. Contém os dados de consumo da residência
@@ -17,35 +19,24 @@ import lombok.ToString;
  * @since 27/05/2020
  */
 @Document(collection = "consumo")
-@Getter
-@EqualsAndHashCode
-@ToString
+@Builder
+@Data
 public class Consumo {
-	
-	private static final String FORMATO_DATA = "dd/MM/yyyy HH:mm:ss"; 
 	
 	@Id
 	private String id;
-	private String equipamento;
-	private Double tensao;
-	private Double corrente;
-	private String data;
 	
-	/**
-	 * Construtor da Classe Consumo
-	 * 
-	 * @param equipamento - Id do equipamento
-	 * @param tensao - Tensão de leitura
-	 * @param corrente - Corrente de leitura
-	 * @param data - Data da leitura
-	 * @author Rafael Moraes
-	 * @since 27/05/2020
-	 */
-	public Consumo(String equipamento, Double tensao, Double corrente, LocalDateTime data) {
-		this.equipamento = equipamento;
-		this.tensao = tensao;
-		this.corrente = corrente;
-		this.data = data.format(DateTimeFormatter.ofPattern(FORMATO_DATA));
-	}
+	@NotEmpty(message = "{equipamento.not.empty}")
+	private String equipamento;
+	
+	@NotNull(message = "{tensao.not.empty}")
+	private Double tensao;
+	
+	@NotEmpty(message = "{corrente.not.empty}")
+	private Double corrente;
+	
+	@NotNull(message = "{data.not.null}")
+	@Past(message = "{data.past}")
+	private LocalDateTime data;
 
 }
