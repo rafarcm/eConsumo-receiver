@@ -23,13 +23,9 @@ public class CreateErrorResponse {
 	 * @param status - HttpStatus
 	 * @return ResponseEntity
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public static ResponseEntity createErrorResponseEntity(Exception ex, HttpStatus status) {
-		List<ErrorObject> errors = new ArrayList<>();
-		errors.add(new ErrorObject(ex.getMessage(), null));
-		ErrorResponse errorResponse = 
-			new ErrorResponse(status.value(), status.getReasonPhrase(), errors);
-		return new ResponseEntity(errorResponse, status);
+		return createErrorResponseEntity(ex, status, null);
 	}
 	
 	/**
@@ -38,6 +34,7 @@ public class CreateErrorResponse {
 	 * @param ex - Exception
 	 * @param classe - Classe DTO com os parâmetros informados
 	 * @param status - HttpStatus
+	 * @param parametro - Valor do parâmetro inválido
 	 * @return ResponseEntity
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
