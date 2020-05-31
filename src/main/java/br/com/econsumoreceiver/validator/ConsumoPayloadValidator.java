@@ -51,7 +51,7 @@ public class ConsumoPayloadValidator implements PayloadValidator {
 		}
 		
 		if(StringUtils.isEmpty(dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim())) {
-			throw new ConsumoException(mensagensConfig.getDataLeituraNull());
+			throw new ConsumoException(mensagensConfig.getDataNull());
 		}
 		
 		if(!isTensaoValida(dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim())) {
@@ -63,7 +63,7 @@ public class ConsumoPayloadValidator implements PayloadValidator {
 		}
 		
 		if(!isDataValida(dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim())) {
-			throw new ConsumoException(mensagensConfig.getDataLeituraInvalida() + " " + dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim());
+			throw new ConsumoException(mensagensConfig.getDataInvalida() + " " + dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim());
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class ConsumoPayloadValidator implements PayloadValidator {
 	
 	private boolean isDataValida(String data) {
 		try {
-			final SimpleDateFormat sdf = new SimpleDateFormat(appConfig.getFormatoData());
+			final SimpleDateFormat sdf = new SimpleDateFormat(appConfig.getFormatoDataHora());
 			sdf.setLenient(false);
 			final Date dataLeitura = sdf.parse(data);
 			return dataLeitura.toInstant()

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,14 +28,13 @@ public class Consumo {
 	@NotEmpty(message = "{equipamento.not.empty}")
 	private String equipamento;
 	
-	@NotNull(message = "{tensao.not.empty}")
+	@NotNull(message = "{tensao.not.null}")
 	private Double tensao;
 	
-	@NotEmpty(message = "{corrente.not.empty}")
+	@NotEmpty(message = "{corrente.not.null}")
 	private Double corrente;
 	
 	@NotNull(message = "{data.not.null}")
-	@Past(message = "{data.past}")
 	private LocalDateTime data;
 
 }

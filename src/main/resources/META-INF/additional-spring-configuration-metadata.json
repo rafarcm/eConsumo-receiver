@@ -25,6 +25,11 @@
     "description": "A description for 'formato.data'"
   },
   {
+    "name": "formato.datahora",
+    "type": "java.lang.String",
+    "description": "A description for 'formato.datahora'"
+  },
+  {
     "name": "separador.payload",
     "type": "java.lang.String",
     "description": "A description for 'separador.payload'"

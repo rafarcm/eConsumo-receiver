@@ -27,14 +27,12 @@ public interface ConsumoService {
 	public void salvarConsumo(String dadosConsumo) throws ConsumoException;
 	
 	/**
-	 * Método responsável por buscar a lista de consumos de um equipamento em um dado período
-	 * <br>O período <b>não</b> pode ser superior a um mês
+	 * Método responsável por buscar a lista de consumos de um equipamento em um data
 	 * 
 	 * @param equipamento - Id do Equipamento
-	 * @param dataInicial - Data Inicial, inclusive, do período de busca
-	 * @param dataFinal - Data final, inclusive, do período de busca
-	 * @return Lista de Consumos do equipamento informado no período desejado
+	 * @param data - Data com os dados de leitura
+	 * @return Lista de Consumos do equipamento na data informada
 	 */
-	public List<Consumo> buscar(String equipamento, LocalDate dataInicial, LocalDate dataFinal);
+	public List<Consumo> buscar(String equipamento, LocalDate data);
 
 }

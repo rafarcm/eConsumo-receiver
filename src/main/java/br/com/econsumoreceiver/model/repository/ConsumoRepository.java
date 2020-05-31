@@ -1,6 +1,6 @@
 package br.com.econsumoreceiver.model.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,6 +15,6 @@ import br.com.econsumoreceiver.model.entity.Consumo;
  */
 public interface ConsumoRepository extends MongoRepository<Consumo, String>{
 
-	public List<Consumo> findByEquipamentoAndDataBetween(String equipamento, LocalDate dataInicial, LocalDate dataFinal);
+	public List<Consumo> findByEquipamentoAndDataBetween(String equipamento, LocalDateTime dataInicial, LocalDateTime dataFinal);
 	
 }

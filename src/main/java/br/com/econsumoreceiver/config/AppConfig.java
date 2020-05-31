@@ -24,6 +24,9 @@ public class AppConfig {
 	@Value("${formato.data}")
 	private String formatoData;
 	
+	@Value("${formato.datahora}")
+	private String formatoDataHora;
+	
 	@Value("${separador.payload}")
 	private String separadorPayload;
 	

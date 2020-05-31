@@ -11,12 +11,6 @@ import lombok.Getter;
 @Getter
 public class MensagensConfig {
 	
-	@Value("${periodo.invalido}")
-	private String periodoInvalido;
-	
-	@Value("${data.inicial.final.invalida}")
-	private String dataInicialFinalInvalida;
-	
 	@Value("${dados.consumo.null}")
 	private String dadosConsumoNull;
 	
@@ -32,8 +26,8 @@ public class MensagensConfig {
 	@Value("${corrente.null}")
 	private String correnteNull;
 	
-	@Value("${data.leitura.null}")
-	private String dataLeituraNull;
+	@Value("${data.not.null}")
+	private String dataNull;
 	
 	@Value("${tensao.invalida}")
 	private String tensaoInvalida;
@@ -41,7 +35,7 @@ public class MensagensConfig {
 	@Value("${corrente.invalida}")
 	private String correnteInvalida;
 	
-	@Value("${data.leitura.invalida}")
-	private String dataLeituraInvalida;
+	@Value("${data.past}")
+	private String dataInvalida;
 
 }
