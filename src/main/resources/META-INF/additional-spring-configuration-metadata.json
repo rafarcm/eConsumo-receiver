@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "mqtt.url",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.url'"
+  },
+  {
+    "name": "mqtt.topic",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.topic'"
+  },
+  {
+    "name": "mqtt.user",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.user'"
+  },
+  {
+    "name": "mqtt.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.password'"
+  },
+  {
+    "name": "formato.data",
+    "type": "java.lang.String",
+    "description": "A description for 'formato.data'"
+  },
+  {
+    "name": "separador.payload",
+    "type": "java.lang.String",
+    "description": "A description for 'separador.payload'"
+  },
+  {
+    "name": "separador.dados.payload",
+    "type": "java.lang.String",
+    "description": "A description for 'separador.dados.payload'"
+  }
+]}
