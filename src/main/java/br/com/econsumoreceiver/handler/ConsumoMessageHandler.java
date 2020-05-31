@@ -10,14 +10,10 @@ import org.springframework.messaging.MessagingException;
 import br.com.econsumoreceiver.config.AppConfig;
 import br.com.econsumoreceiver.config.MqttAppConfig;
 import br.com.econsumoreceiver.service.ConsumoService;
-import br.com.econsumoreceiver.validator.PayloadValidator;
 
 public class ConsumoMessageHandler implements MessageHandler {
 	
 	private static final Logger LOGGER = LogManager.getLogger(MqttAppConfig.class);
-	
-	@Autowired
-	private PayloadValidator validator;
 	
 	@Autowired
 	private ConsumoService consumoService;
@@ -30,7 +26,6 @@ public class ConsumoMessageHandler implements MessageHandler {
     	try {
     		final String[] consumos = message.getPayload().toString().split(appConfig.getSeparadorDadosPayload());
     		for (int i = 0; i < consumos.length; i++) {
-    			validator.validar(consumos[i]);
     			consumoService.salvarConsumo(consumos[i]);
 			}
     	} catch (Exception e) {

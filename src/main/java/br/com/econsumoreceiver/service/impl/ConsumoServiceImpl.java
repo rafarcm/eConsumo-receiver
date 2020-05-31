@@ -7,12 +7,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.econsumoreceiver.config.AppConfig;
 import br.com.econsumoreceiver.enums.ConsumoPayloadEnum;
 import br.com.econsumoreceiver.model.entity.Consumo;
 import br.com.econsumoreceiver.model.repository.ConsumoRepository;
 import br.com.econsumoreceiver.service.ConsumoService;
+import br.com.econsumoreceiver.validator.Validator;
 
 /**
  * Classe de implementação da Interface ConsumoService
@@ -27,23 +29,37 @@ public class ConsumoServiceImpl implements ConsumoService {
 	private ConsumoRepository consumoRepository;
 	
 	@Autowired
-	private AppConfig appConfig;
+	private Validator validator;
 	
+	@Autowired
+	private AppConfig appConfig;
+
 	@Override
-	public void salvarConsumo(String dadosConsumo) {
-		final String[] dadosConsumoArray = dadosConsumo.split(appConfig.getSeparadorPayload());
-		final String equipamento = dadosConsumoArray[ConsumoPayloadEnum.EQUIPAMENTO.getPosicao()].trim();
-		final Double tensao = Double.valueOf(dadosConsumoArray[ConsumoPayloadEnum.TENSAO.getPosicao()].trim());
-		final Double corrente = Double.valueOf(dadosConsumoArray[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim());
-		final LocalDateTime data = LocalDateTime.parse(dadosConsumoArray[ConsumoPayloadEnum.DATA.getPosicao()].trim(), 
-						DateTimeFormatter.ofPattern(appConfig.getFormatoDataHora()));
-		
-		consumoRepository.save(Consumo.builder().equipamento(equipamento).tensao(tensao).corrente(corrente).data(data).build());
+	public Consumo salvarConsumo(String payload) {
+		return salvarConsumo(parsePayloadToConsumo(payload));
+	}
+
+	@Override
+	@Transactional
+	public Consumo salvarConsumo(Consumo consumo) {
+		return consumoRepository.save(consumo);
 	}
 
 	@Override
 	public List<Consumo> buscar(String equipamento, LocalDate data) {
 		return consumoRepository.findByEquipamentoAndDataBetween(equipamento, data.atStartOfDay(), data.atTime(23, 59, 59, 9999));
+	}
+	
+	private Consumo parsePayloadToConsumo(String payload) {
+		validator.validar(payload);
+		final String[] dadosConsumo = payload.split(appConfig.getSeparadorPayload());
+		final String equipamento = dadosConsumo[ConsumoPayloadEnum.EQUIPAMENTO.getPosicao()].trim();
+		final Double tensao = Double.valueOf(dadosConsumo[ConsumoPayloadEnum.TENSAO.getPosicao()].trim());
+		final Double corrente = Double.valueOf(dadosConsumo[ConsumoPayloadEnum.CORRENTE.getPosicao()].trim());
+		final LocalDateTime data = LocalDateTime.parse(dadosConsumo[ConsumoPayloadEnum.DATA.getPosicao()].trim(), 
+						DateTimeFormatter.ofPattern(appConfig.getFormatoDataHora()));
+		
+		return Consumo.builder().equipamento(equipamento).tensao(tensao).corrente(corrente).data(data).build();
 	}
 
 }

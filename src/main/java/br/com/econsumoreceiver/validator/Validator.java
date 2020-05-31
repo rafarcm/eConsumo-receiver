@@ -6,7 +6,7 @@ package br.com.econsumoreceiver.validator;
  * @author Rafael Moraes
  * @since 29/05/2020
  */
-public interface PayloadValidator {
+public interface Validator {
 	
 	/**
 	 * Método responsável por realizar a validação do Payload

@@ -16,7 +16,7 @@ import br.com.econsumoreceiver.enums.ConsumoPayloadEnum;
 import br.com.econsumoreceiver.exception.ConsumoException;
 
 @Service
-public class ConsumoPayloadValidator implements PayloadValidator {
+public class ConsumoValidator implements Validator {
 	
 	private static final int QTDE_INFORMACOES_PAYLOAD = 4;
 	
@@ -34,7 +34,7 @@ public class ConsumoPayloadValidator implements PayloadValidator {
 		}
 		final String[] dadosConsumoArray = payload.split(appConfig.getSeparadorPayload());
 		
-		if (dadosConsumoArray == null || dadosConsumoArray.length != QTDE_INFORMACOES_PAYLOAD) {
+		if (dadosConsumoArray.length != QTDE_INFORMACOES_PAYLOAD) {
 			throw new ConsumoException(mensagensConfig.getDadosConsumoInvalida());
 		}
 		

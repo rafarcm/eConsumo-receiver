@@ -3,7 +3,6 @@ package br.com.econsumoreceiver.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.econsumoreceiver.exception.ConsumoException;
 import br.com.econsumoreceiver.model.entity.Consumo;
 
 /**
@@ -19,16 +18,27 @@ public interface ConsumoService {
 	 * 
 	 * @author Rafael Moraes
 	 * @since 27/05/2020
-	 * @param dadosConsumo - Deve ser enviado no seguinte padrão <b>tensão;corrente</b>
+	 * @param payload - Deve ser enviado no seguinte padrão <b>tensão;corrente</b>
 	 * <br>Os valores de tensão e corrente, devem ser decimais separados por ponto e são obrigatórios
 	 * <br><b>Ex:</b> 110.5;56.2 
-	 * @throws ConsumoException - Erro que são gerados caso o parâmetro não atenda o padrão pré estabelecido
+	 * @return Objeto Consumo populado
 	 */
-	public void salvarConsumo(String dadosConsumo) throws ConsumoException;
+	public Consumo salvarConsumo(String payload);
+	
+	/**
+	 * Método responsável por salvar os dados de consumo na base de dados
+	 * 
+	 * @author Rafael Moraes
+	 * @since 27/05/2020
+	 * @param consumo - Objeto Consumo a ser salvo na base
+	 */
+	public Consumo salvarConsumo(Consumo consumo);
 	
 	/**
 	 * Método responsável por buscar a lista de consumos de um equipamento em um data
 	 * 
+	 * @author Rafael Moraes
+	 * @since 27/05/2020
 	 * @param equipamento - Id do Equipamento
 	 * @param data - Data com os dados de leitura
 	 * @return Lista de Consumos do equipamento na data informada
