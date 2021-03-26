@@ -26,12 +26,3 @@ O envio dos dados dos sensores é feito através de protocolo Mqtt.
 **4. Exemplo Payload com três leituras:** 110.15;50.74;20/05/2020 12:30:15%110.20;52.00;20/05/2020 12:30:16%110.25;56.74;20/05/2020 12:30:17
 
 As informações são armazenadas em um banco de dados MongoDB.
-
-Os dados da fila Mqtt, são configurados no arquivo `application.proterties` como segue:
-
-```
-mqtt.url=tcp://localhost:1883
-mqtt.topic=/econsumo
-mqtt.user=
-mqtt.password=
-```
