@@ -11,7 +11,7 @@ import br.com.econsumo.api.config.AppConfig;
 import br.com.econsumo.api.config.MqttAppConfig;
 import br.com.econsumo.api.service.ConsumoService;
 
-public class ConsumoReceiverMessageHandler implements MessageHandler {
+public class ConsumoMessageHandler implements MessageHandler {
 	
 	private static final Logger LOGGER = LogManager.getLogger(MqttAppConfig.class);
 	

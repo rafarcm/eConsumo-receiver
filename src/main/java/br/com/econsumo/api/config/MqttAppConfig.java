@@ -14,7 +14,7 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
-import br.com.econsumo.api.handler.ConsumoReceiverMessageHandler;
+import br.com.econsumo.api.handler.ConsumoMessageHandler;
 
 /**
  * Classe responsável pela configuração do Broker Mqtt que será ouvido
@@ -58,6 +58,6 @@ public class MqttAppConfig {
 	@Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler handler() {
-        return new ConsumoReceiverMessageHandler();
+        return new ConsumoMessageHandler();
     }
 }
