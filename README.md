@@ -1,7 +1,7 @@
 # eConsumo API
 API para integração de dados para sistema de medição de consumo de energia doméstico.
 
-Esta API é responsável por receber e disponibilizar as informações do sistema de medição de energia
+Esta API é responsável por receber e disponibilizar as informações do sistema de medição de energia.
 
 - **Tecnologias utilizadas:**
   * Java 1.8
