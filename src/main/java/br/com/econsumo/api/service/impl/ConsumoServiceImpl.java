@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.econsumo.api.config.AppConfig;
 import br.com.econsumo.api.enums.ConsumoReceiverPayloadEnum;
-import br.com.econsumo.api.model.entity.Consumo;
+import br.com.econsumo.api.model.entity.ConsumoEntity;
 import br.com.econsumo.api.model.repository.ConsumoRepository;
 import br.com.econsumo.api.service.ConsumoService;
 import br.com.econsumo.api.validator.Validator;
@@ -37,24 +37,24 @@ public class ConsumoServiceImpl implements ConsumoService {
 	private AppConfig appConfig;
 
 	@Override
-	public Consumo salvarConsumo(String payload) {
+	public ConsumoEntity salvarConsumo(String payload) {
 		return salvarConsumo(parsePayloadToConsumo(payload));
 	}
 
 	@Override
 	@Transactional
-	public Consumo salvarConsumo(Consumo consumo) {
+	public ConsumoEntity salvarConsumo(ConsumoEntity consumo) {
 		return consumoRepository.save(consumo);
 	}
 
 	@Override
-	public List<Consumo> buscar(String equipamento, LocalDate data) {
+	public List<ConsumoEntity> buscar(String equipamento, LocalDate data) {
 		return consumoRepository
 				.findByEquipamentoAndDataBetween(equipamento, data.atStartOfDay(), data.atTime(23, 59, 59, 9999))
-				.stream().sorted(Comparator.comparing(Consumo::getData)).collect(Collectors.toList());
+				.stream().sorted(Comparator.comparing(ConsumoEntity::getData)).collect(Collectors.toList());
 	}
 
-	private Consumo parsePayloadToConsumo(final String payload) {
+	private ConsumoEntity parsePayloadToConsumo(final String payload) {
 		validator.validar(payload);
 		final String[] dadosConsumo = payload.split(appConfig.getSeparadorPayload());
 		final String equipamento = dadosConsumo[ConsumoReceiverPayloadEnum.EQUIPAMENTO.getPosicao()].trim();
@@ -63,7 +63,7 @@ public class ConsumoServiceImpl implements ConsumoService {
 		final LocalDateTime data = LocalDateTime.parse(dadosConsumo[ConsumoReceiverPayloadEnum.DATA.getPosicao()].trim(),
 				DateTimeFormatter.ofPattern(appConfig.getFormatoDataHora()));
 
-		return Consumo.builder().equipamento(equipamento).tensao(tensao).corrente(corrente).data(data).build();
+		return ConsumoEntity.builder().equipamento(equipamento).tensao(tensao).corrente(corrente).data(data).build();
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import br.com.econsumo.api.common.entity.EConsumoApiEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +25,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Consumo {
-	
+public class ConsumoEntity implements EConsumoApiEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String id;
 	

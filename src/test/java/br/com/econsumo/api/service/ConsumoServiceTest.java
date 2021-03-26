@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import br.com.econsumo.api.config.AppConfig;
 import br.com.econsumo.api.config.MensagensConfig;
 import br.com.econsumo.api.exception.ConsumoException;
-import br.com.econsumo.api.model.entity.Consumo;
+import br.com.econsumo.api.model.entity.ConsumoEntity;
 import br.com.econsumo.api.model.repository.ConsumoRepository;
 import br.com.econsumo.api.service.impl.ConsumoServiceImpl;
 import br.com.econsumo.api.validator.ConsumoValidator;
@@ -44,22 +44,22 @@ public class ConsumoServiceTest {
 	@SpyBean
 	private MensagensConfig mensagensConfig;
 	
-	private static Consumo consumoBaseDados;
+	private static ConsumoEntity consumoBaseDados;
 	private static String payloadValido;
 	
 	@BeforeAll
 	public static void setUp() {
-		consumoBaseDados = Consumo.builder().id("1").equipamento("123").tensao(127.0).corrente(50.0).data(LocalDateTime.now()).build();
+		consumoBaseDados = ConsumoEntity.builder().id("1").equipamento("123").tensao(127.0).corrente(50.0).data(LocalDateTime.now()).build();
 		payloadValido = "123;127.0;50.0;27-05-2020 18:55:56";
 	}
 	
 	@Test
 	public void deveSalvarConsumo() {
 		//Cenário
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação
-		final Consumo consumoSalvo = service.salvarConsumo(new Consumo());
+		final ConsumoEntity consumoSalvo = service.salvarConsumo(new ConsumoEntity());
 		
 		//Verificação
 		Assertions.assertThat(consumoSalvo).isNotNull().isEqualTo(consumoBaseDados);
@@ -68,10 +68,10 @@ public class ConsumoServiceTest {
 	@Test
 	public void deveSalvarConsumoPayload() {
 		//Cenário
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação
-		final Consumo consumoSalvo = service.salvarConsumo(payloadValido);
+		final ConsumoEntity consumoSalvo = service.salvarConsumo(payloadValido);
 		
 		//Verificação
 		Assertions.assertThat(consumoSalvo).isNotNull().isEqualTo(consumoBaseDados);
@@ -81,7 +81,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDadoConsumoNaoInformadoAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -92,7 +92,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroEquipamentoNaoInformadoAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = ";127.0;50.0;27-05-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -103,7 +103,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroTensaoNaoInformadaAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;;50.0;27-05-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -114,7 +114,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroCorrenteNaoInformadaAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;;27-05-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -125,7 +125,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDataNaoInformadaAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;50.0; ";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -136,7 +136,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDadoConsumoInvalidoAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;50.0;27-05-2020 18:55:56;123";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -147,7 +147,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroTensaoInvalidaAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;T;50.0;27-05-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -158,7 +158,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroCorrenteInvalidaAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;C;27-05-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -169,7 +169,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDataInvalidaExisteAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;50.0;D";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -180,7 +180,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDataInvalidaComDataQueNaoExisteAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;50.0;30-02-2020 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -191,7 +191,7 @@ public class ConsumoServiceTest {
 	public void deveRetornarErroDataInvalidaComDataQMaiorQueHojeAoSalvarConsumoPayload() {
 		//Cenário
 		final String payload = "123;127.0;50.0;20-05-2500 18:55:56";
-		Mockito.when(repository.save(Mockito.any(Consumo.class))).thenReturn(consumoBaseDados);
+		Mockito.when(repository.save(Mockito.any(ConsumoEntity.class))).thenReturn(consumoBaseDados);
 		
 		//Ação + Verificação
 		final ConsumoException thrown = assertThrows(ConsumoException.class, () -> service.salvarConsumo(payload));
@@ -201,13 +201,13 @@ public class ConsumoServiceTest {
 	@Test
 	public void deveBuscarConsumos(@Autowired ConsumoRepository consumoRepository) {
 		// Cenário
-		final List<Consumo> consumosBaseDados = new ArrayList<Consumo>();
+		final List<ConsumoEntity> consumosBaseDados = new ArrayList<ConsumoEntity>();
 		consumosBaseDados.add(consumoBaseDados);
 		Mockito.when(repository.findByEquipamentoAndDataBetween(Mockito.anyString(), Mockito.any(LocalDateTime.class),
 				Mockito.any(LocalDateTime.class))).thenReturn(consumosBaseDados);
 
 		// Ação
-		final List<Consumo> consumos = service.buscar("123", LocalDate.now());
+		final List<ConsumoEntity> consumos = service.buscar("123", LocalDate.now());
 
 		// Verificação
 		Assertions.assertThat(consumos).isNotNull().isNotEmpty().contains(consumoBaseDados);

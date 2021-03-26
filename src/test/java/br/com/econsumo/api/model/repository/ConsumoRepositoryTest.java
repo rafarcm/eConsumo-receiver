@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.econsumo.api.model.entity.Consumo;
+import br.com.econsumo.api.model.entity.ConsumoEntity;
 import br.com.econsumo.api.model.repository.ConsumoRepository;
 
 @DataMongoTest
@@ -23,12 +23,12 @@ public class ConsumoRepositoryTest {
 	public void deveBuscarConsumosPorEquipamentoEData(@Autowired ConsumoRepository consumoRepository) {
 		// Cenário
 		final LocalDateTime data = LocalDateTime.now();
-		final Consumo consumoSave = consumoRepository.save(
-				Consumo.builder().equipamento("123").tensao(127.0).corrente(50.0).data(data).build());
-		final Consumo consumoCompare = consumoRepository.findById(consumoSave.getId()).get();
+		final ConsumoEntity consumoSave = consumoRepository.save(
+				ConsumoEntity.builder().equipamento("123").tensao(127.0).corrente(50.0).data(data).build());
+		final ConsumoEntity consumoCompare = consumoRepository.findById(consumoSave.getId()).get();
 		
 		// Ação
-		final List<Consumo> consumos = consumoRepository.findByEquipamentoAndDataBetween("123",
+		final List<ConsumoEntity> consumos = consumoRepository.findByEquipamentoAndDataBetween("123",
 				data.toLocalDate().atStartOfDay(), data.toLocalDate().atTime(23, 59, 59, 9999));
 
 		// Verificação

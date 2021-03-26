@@ -3,7 +3,7 @@ package br.com.econsumo.api.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.econsumo.api.model.entity.Consumo;
+import br.com.econsumo.api.model.entity.ConsumoEntity;
 
 /**
  * Interface para definição do comportamento do Serviço de Consumo
@@ -23,7 +23,7 @@ public interface ConsumoService {
 	 * <br><b>Ex:</b> 110.5;56.2 
 	 * @return Objeto Consumo populado
 	 */
-	public Consumo salvarConsumo(String payload);
+	public ConsumoEntity salvarConsumo(String payload);
 	
 	/**
 	 * Método responsável por salvar os dados de consumo na base de dados
@@ -32,7 +32,7 @@ public interface ConsumoService {
 	 * @since 27/05/2020
 	 * @param consumo - Objeto Consumo a ser salvo na base
 	 */
-	public Consumo salvarConsumo(Consumo consumo);
+	public ConsumoEntity salvarConsumo(ConsumoEntity consumo);
 	
 	/**
 	 * Método responsável por buscar a lista de consumos de um equipamento em um data
@@ -43,6 +43,6 @@ public interface ConsumoService {
 	 * @param data - Data com os dados de leitura
 	 * @return Lista de Consumos do equipamento na data informada
 	 */
-	public List<Consumo> buscar(String equipamento, LocalDate data);
+	public List<ConsumoEntity> buscar(String equipamento, LocalDate data);
 
 }
