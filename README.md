@@ -27,4 +27,11 @@ O envio dos dados dos sensores é feito através de protocolo Mqtt.
 
 As informações são armazenadas em um banco de dados MongoDB.
 
-Os dados da fila Mqtt, são configurados no arquivo application.proterties como segue.
+Os dados da fila Mqtt, são configurados no arquivo `application.proterties` como segue:
+
+```
+mqtt.url=tcp://localhost:1883
+mqtt.topic=/econsumo
+mqtt.user=
+mqtt.password=
+```
