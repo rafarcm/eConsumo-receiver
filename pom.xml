@@ -11,7 +11,7 @@
 	<groupId>br.com.econsumo.api</groupId>
 	<artifactId>econsumo-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eConsumo-receiver</name>
+	<name>eConsumo-api</name>
 	<description>API para integração de dados para sistema de medição de consumo de energia doméstico</description>
 
 	<properties>
