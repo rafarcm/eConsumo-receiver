@@ -8,7 +8,7 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.econsumoreceiver</groupId>
+	<groupId>br.com.econsumo.receiver</groupId>
 	<artifactId>econsumo-receiver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eConsumo-receiver</name>
