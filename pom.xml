@@ -8,11 +8,11 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.econsumo.receiver</groupId>
-	<artifactId>econsumo-receiver</artifactId>
+	<groupId>br.com.econsumo.api</groupId>
+	<artifactId>econsumo-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eConsumo-receiver</name>
-	<description>Projeto responsável por receber os dados dos sensores de corrente e tensão e armazenar as informações em um banco de dados MongoDB (NoSQL)</description>
+	<description>API para integração de dados para sistema de medição de consumo de energia doméstico</description>
 
 	<properties>
 		<java.version>1.8</java.version>
