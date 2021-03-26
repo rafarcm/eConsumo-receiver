@@ -3,8 +3,8 @@ API para integração de dados para sistema de medição de consumo de energia d
 
 Esta API é responsável por receber e disponibilizar as informações do sistema de medição de energia
 
-- Receiver
-Parte do sistema de IoT, responsável por receber os dados dos sensores de corrente e tensão e armazenar as informações em um banco de dados MongoDB (NoSQL).
+# Pacote Receiver
+Parte da API, responsável por receber os dados dos sensores de corrente e tensão e armazenar as informações em um banco de dados MongoDB (NoSQL).
 
 A leitura dos dados dos sensores é feita através de protocolo Mqtt.
 
