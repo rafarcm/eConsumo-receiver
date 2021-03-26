@@ -10,10 +10,10 @@ Esta API é responsável por receber e disponibilizar as informações do sistem
   * MongoDB
   * Mosquitto
 
-# Pacote Receiver
+# Como enviar os dados dos sensores de tensão e corrente ao sistema
 Parte da API, responsável por receber os dados dos sensores de corrente e tensão e armazenar as informações em um banco de dados MongoDB (NoSQL).
 
-A leitura dos dados dos sensores é feita através de protocolo Mqtt.
+O envio dos dados dos sensores é feito através de protocolo Mqtt.
 
 **1. Padrão do Payload:** tensão;corrente;data de leitura
 
