@@ -1,4 +1,4 @@
-package br.com.econsumo.receiver.api.controller;
+package br.com.econsumo.receiver.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
