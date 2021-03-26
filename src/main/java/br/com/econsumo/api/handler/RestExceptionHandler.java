@@ -1,18 +1,12 @@
 package br.com.econsumo.api.handler;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import br.com.econsumo.api.error.ErrorObject;
-import br.com.econsumo.api.error.ErrorResponse;
 
 /**
  * Classe responsável por capturar a exceção lançada pela falha na validação
@@ -24,20 +18,19 @@ import br.com.econsumo.api.error.ErrorResponse;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(ConstraintViolationException.class)
+	@SuppressWarnings("rawtypes") 
 	public final ResponseEntity<Object> handleConstraintViolationExceptions(ConstraintViolationException ex) {
-        final List<ErrorObject> errors = getErrors(ex);
-        final ErrorResponse errorResponse = getErrorResponse(ex, HttpStatus.BAD_REQUEST, errors);
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        final StringBuilder msgError = new StringBuilder();
+        String prefix = "";
+ 
+        for (ConstraintViolation erro : ex.getConstraintViolations()) {
+        	msgError.append(prefix);
+        	prefix = ", ";
+        	msgError.append(erro.getMessage());
+		}
+        
+        return ResponseEntity.badRequest().body(msgError.toString());
 	}
 
-    private ErrorResponse getErrorResponse(ConstraintViolationException ex, HttpStatus status, List<ErrorObject> errors) {
-        return new ErrorResponse(status.value(), status.getReasonPhrase(), errors);
-    }
-
-    private List<ErrorObject> getErrors(ConstraintViolationException ex) {
-        return ex.getConstraintViolations().stream()
-                .map(error -> new ErrorObject(error.getMessage(), error.getInvalidValue()))
-                .collect(Collectors.toList());
-    }
 	
 }
