@@ -12,7 +12,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.econsumo.receiver.model.entity.Consumo;
-import br.com.econsumo.receiver.model.repository.ConsumoRepository;
 
 @DataMongoTest
 @ExtendWith(SpringExtension.class)

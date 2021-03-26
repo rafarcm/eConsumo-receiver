@@ -27,7 +27,7 @@ import br.com.econsumo.receiver.service.ConsumoService;
 
 @Validated
 @RestController
-@RequestMapping("/econsumoreceiver/api/consumo")
+@RequestMapping("/econsumo-receiver/api/consumos")
 public class ConsumoController {
 	
 	@Autowired
